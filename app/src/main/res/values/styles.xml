@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="IncludeStyle" parent="Widget.MaterialComponents.CardView">
+    <item name="cardCornerRadius">10dp</item>
+    <item name="cardElevation">0dp</item>
+    <item name="cardBackgroundColor">@android:color/white</item>
+    <item name="cardMaxElevation">0dp</item>
+    <item name="cardPreventCornerOverlap">false</item>
+    <item name="cardUseCompatPadding">true</item>
+</style>
+</resources>
