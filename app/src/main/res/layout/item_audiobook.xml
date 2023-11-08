@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/imgAnhAudioBook"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book"
+            />
+
+        <TextView
+            android:id="@+id/txvAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="#7E373333"
+            android:gravity="center"
+            android:text="audiobook"
+            android:textColor="#fff"
+            android:textSize="10dp"
+            tools:ignore="TextSizeCheck" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txvTenAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="audiobook"
+        android:textColor="#000"
+        android:textSize="14dp"
+        tools:ignore="TextSizeCheck" />
+</LinearLayout>
