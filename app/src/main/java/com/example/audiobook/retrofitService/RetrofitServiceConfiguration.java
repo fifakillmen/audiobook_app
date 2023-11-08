@@ -23,7 +23,7 @@ public class RetrofitServiceConfiguration {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
         retrofit= new Retrofit.Builder()
-                .baseUrl("http://192.168.0.102:9999")
+                .baseUrl("http://192.168.137.1:9999")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
