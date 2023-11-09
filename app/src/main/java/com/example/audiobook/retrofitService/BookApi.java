@@ -4,9 +4,10 @@ import com.example.audiobook.entity.Book;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface BookApi {
-   @GET()
-   Class<List<Book>> getAllBook();
+   @GET("/book/getBook")
+Call<List<Book>> getAllBook();
 }
