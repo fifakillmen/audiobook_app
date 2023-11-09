@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         String password = pref.getString("password", null);
         Boolean remember = pref.getBoolean("remember", false);
         String accessToken = pref.getString("accessToken", null);
+        Boolean isLogin = pref.getBoolean("isLogin", false);
         // neu luu thi check token con song ko
         if (remember) {
             EditText loginEmail = bottomSheetView_Login.findViewById(R.id.login_email);
@@ -93,22 +94,23 @@ public class MainActivity extends AppCompatActivity {
             authApiService.checkAccessToken(accessToken).enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                    if (response.body()) {
-                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Out of permission time!!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                        if (Boolean.TRUE.equals(response.body())) {
+                            editor.putBoolean("isLogin",true);
+                            editor.apply();
+                            editor.commit();
 
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Out of permission time!!", Toast.LENGTH_SHORT).show();
+                        }
+                }
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
                     Toast.makeText(MainActivity.this, "Cannot connect to sever!!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
-
-
     }
 
 
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 if (loginDialog.isShowing()) {
                     loginDialog.dismiss();
                 }
-
                 TextView loginTextView = bottomSheetView_SignUp.findViewById(R.id.tvAlreadyAcc);
                 SpannableString spannableString = new SpannableString("Already have an account? Login");
 
@@ -192,20 +193,24 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putBoolean("remember", true);
                                 editor.putString("accessToken",responseDto.getAccessToken());
                                 editor.putString("roles",gson.toJson(responseDto.getRoles()));
-                                editor.putString("user",gson.toJson(responseDto.getUser()));
+                                if (responseDto.getUser()!=null){
+                                    Log.w("user",responseDto.getUser().toString());
+                                    editor.putString("user",gson.toJson(responseDto.getUser()));
+                                }
                             } else {
                                 editor.clear();
                             }
                             editor.apply();
                             editor.commit();
-
-
-
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            startActivity(intent);
+                            if (responseDto.getUser()!=null){
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                            }else {
+                                Intent intent = new Intent(MainActivity.this, CreateUserActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<AccountResponseDto> call, Throwable t) {
                         Log.w("loginEmail",loginEmail.getText().toString());
@@ -218,11 +223,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void setupSignUpButton(Button buttonSignUp, View bottomSheetView_SignUp) {
-
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 EditText signUp_email = bottomSheetView_SignUp.findViewById(R.id.tx_signUp_email);

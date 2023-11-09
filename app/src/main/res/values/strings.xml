@@ -8,4 +8,12 @@
     <string name="remember_this_account">Remember this account</string>
     <string name="already_have_an_account">Already have an account? </string>
     <string name="sign_up">Sign Up</string>
+    <string name="birthday">Birthday</string>
+    <string name="dob">Dob</string>
+    <string name="create_user">Create user</string>
+    <string-array name="gender_array">
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Khác</item>
+    </string-array>
 </resources>
